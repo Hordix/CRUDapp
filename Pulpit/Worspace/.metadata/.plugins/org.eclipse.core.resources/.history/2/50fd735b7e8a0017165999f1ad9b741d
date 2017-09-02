@@ -1,0 +1,22 @@
+package pl.artur.poswiata.crudApplication1.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import pl.artur.poswiata.crudApplication1.domain.Product;
+import pl.artur.poswiata.crudApplication1.repository.ProductsRepository;
+
+@Service // adnotacja, działa wspólnie z autowire 
+public class ProductsService {
+
+	@Autowired
+	public ProductsRepository productsRepository;
+	
+	public Iterable<Product> getAllProducts() {
+		// TODO Auto-generated method stub
+		return productsRepository.findAll();
+	}
+
+	
+	
+}

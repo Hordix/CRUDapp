@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+
+<head>
+     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
+   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+  
+</head>
+
+<body ng-app="myapp"  >
+
+
+<div  ng-controller="HelloController">
+<h1 ng-style="myObj"><center>LOMBARD</center></h1>
+
+
+    
+    
+    <h2>Wprowadz dane nowego produktu</h2>
+    <form>
+        Nazwa: <input type="text" ng-model="name">
+        Opis: <input type="text" ng-model="description">
+        Cena: <input type="number" ng-model="price">
+      
+        <button type="button" class="btn btn-success" ng-click="addProduct()">Dodaj</button>
+    </form>
+
+    
+
+    <h2>Lista produktow w bazie danych</h2>
+    
+    <table class="table table-striped table-bordered table-list">
+                  <thead>
+                    <tr>
+                       
+                        <th class="hidden-xs">ID</th>
+                        <th>Nazwa</th>
+                        <th>Opis</th>
+                        <th>Cena</th>
+                         <th><em class="fa fa-cog"></em></th>
+                    </tr> 
+                  </thead>
+                  <tbody>
+                          <tr ng-repeat="product in products">
+                           
+                            <td class="hidden-xs">{{porduct.id}}</td>
+                            <td>{{product.name}}</td>
+                            <td>{{product.description}}</td>
+                            <td>{{product.price}}</td>
+                            <td align="center">
+                              <a ng-show="!edit" ng-click="edit = true"(product.id)" class="btn btn-default"><em class="fa fa-pencil"></em></a>
+                              <a ng-show="!edit" ng-click="deleteProduct(product.id)" class="btn btn-danger"><em class="fa fa-trash"></em></a>
+                              <a ng-show="edit" ng-click="edit = false" class="btn btn-danger"><em class="fa fa-save"></em></a>
+                            </td>
+                          </tr>
+                        </tbody>
+                </table>
+    
+</div>
+
+<script>
+    angular.module("myapp", [])
+            
+
+
+            .controller("HelloController", function ($scope, $http) {
+              $scope.myObj = {
+              "color" : "blue",
+              "background-color" : "green",
+              "font-size" : "65px",
+              "padding" : "50px"
+    }
+    
+            $http({
+                method: 'GET',
+                url: '/products'
+            }).then(function (response) {
+                console.log(response)
+                $scope.products = response.data;
+            });
+
+//            $http({
+//                method: 'GET',
+//                url: '/someUrl'
+//            }).then(function successCallback(response) {
+//            }, function errorCallback(response) {
+//            });
+
+
+            $scope.helloTo = {};
+
+            $scope.helloTo.title = "AngularJS";
+
+
+            $scope.deleteProduct = function (id) {
+                $http({
+                    method: 'DELETE',
+                    url: '/products/' + id
+                }).then(function (response) {
+                    $scope.products = $scope.products.filter(function (product) {
+                        return product.id != id
+                    })
+                });
+            }
+
+
+            $scope.addProduct = function () {
+                var product = {
+                    name: $scope.name,
+                    description: $scope.description,
+                    price: $scope.price
+                };
+                $http({
+                        method: 'POST',
+                        url: '/products',
+                        data: product
+                    }
+                ).then(function (response) {
+                    console.log(response)
+                    product.id = response.data.id;
+                    $scope.products.push(product)
+                });
+              
+            }
+            
+
+        });
+</script>
+
+</body>
+</html>

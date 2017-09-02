@@ -1,0 +1,30 @@
+package pl.artur.poswiata.crudApplication1.controles;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+
+import pl.artur.poswiata.crudApplication1.domain.Product;
+import pl.artur.poswiata.crudApplication1.repository.ProductsRepository;
+
+@RestController
+  
+public class ProductController {
+   
+	@Autowired //Adnotacja która mówi, że w momencie gdy jest uruchamiana aplikacja kontekst springowy przeszukuej beany i szuka w nich takeigo który odpowaiada tpyem temu własnie zadlekarowanemu 
+	private ProductsRepository productsRepository;
+	
+	@GetMapping("/hello")
+	public String arturposwiata() 
+	{
+		
+		return "Hello world";
+		
+	}
+	
+	
+	public Iterable<Product> getAllProducts(){
+		return productsRepository.findAll();
+	}
+}

@@ -1,0 +1,63 @@
+package pl.artur.poswiata.crudApplication1;
+
+import org.hibernate.validator.internal.constraintvalidators.bv.AssertTrueValidator;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.embedded.LocalServerPort;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import junit.framework.Assert;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class CrudApplication1ApplicationTests {
+
+	@LocalServerPort
+	private int port;
+	
+	@Autowired
+	private TestRestTemplate restTemplate; //restowy 
+	
+	@Test
+	public void contextLoads() {
+	}
+     
+	
+	@Test
+	public void shouldAddTwoNumbers() {
+		
+		//given
+		long a = 3;
+		long b = 6;
+		
+		//when
+		long wynik = a + b;
+		
+		//then
+		
+		Assert.assertEquals(wynik, 9);
+		
+		
+	}
+	@Test
+	public void shouldGetAllProducts() {
+		//spring mocmvc 
+		
+		
+		//given
+		restTemplate.getForObject("http://localhost:"+ port +  "/products",
+		List.class)
+		
+		//when
+		
+		
+		//then
+		
+		
+		
+	};
+
+}

@@ -1,0 +1,12 @@
+package pl.artur.poswiata.domain;
+
+import javax.persistence.Entity;
+
+@Entity
+public class Product {
+
+	public String name;
+	public String destripciton;
+	public Integer price;
+	
+}

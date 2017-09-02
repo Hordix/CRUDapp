@@ -1,0 +1,2 @@
+INDEX VERSION 1.126+/home/mistrz/Pulpit/Worspace/.metadata/.plugins/org.eclipse.jdt.core
+870618337.index

@@ -1,0 +1,9 @@
+package Repository;
+
+import org.springframework.data.repository.CrudRepository;
+
+import domain.Products;
+
+public interface ProductsRepository extends CrudRepository<Products, Long> {
+
+}

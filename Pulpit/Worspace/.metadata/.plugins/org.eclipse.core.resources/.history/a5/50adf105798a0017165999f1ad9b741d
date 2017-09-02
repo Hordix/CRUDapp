@@ -1,0 +1,16 @@
+package pl.artur.poswiata.crudApplication1.controles;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+  
+public class Productcontroler {
+   
+	@GetMapping("/hello")
+	public String arturposwiata() {
+		
+		return "Hello world";
+		
+	}
+}
